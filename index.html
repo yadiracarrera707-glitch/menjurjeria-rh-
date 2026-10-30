@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentory Grupo Consultor Turístico | Buzón Menjurjería Milagros</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- SheetJS for Excel Export -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Pinyon+Script&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mentory: {
+              red: '#DE2A36',
+              darkRed: '#B81D27',
+              gray: '#4A5568',
+              lightBg: '#F8FAFC'
+            },
+            milagros: {
+              gold: '#D4AF37',
+              goldLight: '#F3E5AB',
+              navy: '#0B1021',
+              darkBlue: '#050714',
+              accent: '#1E293B'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Cinzel', 'serif'],
+            script: ['Great Vibes', 'cursive']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #AA7C11 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .mentory-red-gradient {
+      background: linear-gradient(135deg, #EE3843 0%, #B81D27 100%);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- TOP HEADER WITH LOGOS -->
+  <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
+      
+      <!-- ESQUINA IZQUIERDA: LOGO MENTORY -->
+      <div class="flex items-center space-x-3 w-full md:w-auto justify-between md:justify-start">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('worker')">
+          <!-- Mentory SVG Logo -->
+          <svg class="h-10 sm:h-12 w-auto" viewBox="0 0 220 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Ribbon Pentagon Motif -->
+            <g transform="translate(10, 10)">
+              <!-- Segment 1 (Red Top) -->
+              <path d="M25 5 L40 18 L32 26 L20 16 Z" fill="#E53935"/>
+              <!-- Segment 2 (Orange Right) -->
+              <path d="M40 18 L48 38 L37 38 L32 26 Z" fill="#FB8C00"/>
+              <!-- Segment 3 (Green Bottom Right) -->
+              <path d="M48 38 L30 52 L26 42 L37 38 Z" fill="#43A047"/>
+              <!-- Segment 4 (Blue Bottom Left) -->
+              <path d="M30 52 L12 38 L20 34 L26 42 Z" fill="#1E88E5"/>
+              <!-- Segment 5 (Purple Left) -->
+              <path d="M12 38 L25 5 L20 16 L17 31 Z" fill="#8E24AA"/>
+            </g>
+            <!-- Vertical Separator -->
+            <line x1="72" y1="12" x2="72" y2="68" stroke="#CBD5E1" stroke-width="2"/>
+            <!-- Text Mentory -->
+            <text x="82" y="42" font-family="'Inter', sans-serif" font-weight="800" font-size="28" fill="#DE2A36" letter-spacing="-0.5">Mentory</text>
+            <rect x="82" y="46" width="22" height="3.5" fill="#DE2A36" rx="1"/>
+            <!-- Subtitle -->
+            <text x="82" y="62" font-family="'Inter', sans-serif" font-weight="500" font-size="10.5" fill="#64748B" letter-spacing="0.2">Grupo Consultor Turístico</text>
+          </svg>
+        </div>
+
+        <!-- Mobile Navigation Switcher Button -->
+        <div class="md:hidden flex space-x-1 bg-slate-100 p-1 rounded-lg">
+          <button id="mob-btn-worker" onclick="switchTab('worker')" class="px-2.5 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-sm">
+            <i class="fa-solid fa-paper-plane mr-1 text-red-600"></i> Buzón
+          </button>
+          <button id="mob-btn-rh" onclick="switchTab('rh')" class="px-2.5 py-1 text-xs font-semibold rounded-md text-slate-600">
+            <i class="fa-solid fa-user-shield mr-1 text-slate-500"></i> RH
+          </button>
+        </div>
+      </div>
+
+      <!-- CENTRAL TITLE -->
+      <div class="text-center my-1 md:my-0">
+        <h1 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 tracking-tight leading-tight">
+          Mentory Grupo Consultor Turístico
+        </h1>
+        <p class="text-xs sm:text-sm font-medium text-slate-500 flex items-center justify-center gap-1.5 mt-0.5">
+          <span class="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+          Buzón de Quejas y Sugerencias — <span class="font-semibold text-slate-700">Menjurjería Milagros</span>
+        </p>
+      </div>
+
+      <!-- ESQUINA DERECHA: LOGO MENJURJERÍA MILAGROS -->
+      <div class="hidden md:flex items-center justify-end">
+        <div class="flex items-center space-x-2 bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 p-2 px-3 rounded-xl shadow border border-amber-500/30">
+          <svg class="h-10 w-auto" viewBox="0 0 160 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE27A" />
+                <stop offset="50%" stop-color="#D4AF37" />
+                <stop offset="100%" stop-color="#996515" />
+              </linearGradient>
+            </defs>
+            <!-- Background sparkles -->
+            <path d="M 30 12 L 32 16 L 36 18 L 32 20 L 30 24 L 28 20 L 24 18 L 28 16 Z" fill="url(#goldGrad)" opacity="0.8"/>
+            <path d="M 130 40 L 131.5 43 L 135 44.5 L 131.5 46 L 130 49 L 128.5 46 L 125 44.5 L 128.5 43 Z" fill="url(#goldGrad)" opacity="0.8"/>
+            <!-- Monogram MM Script Stylized -->
+            <text x="22" y="44" font-family="'Great Vibes', 'Pinyon Script', cursive" font-size="44" font-weight="bold" fill="url(#goldGrad)">MM</text>
+            <circle cx="112" cy="22" r="3" stroke="url(#goldGrad)" stroke-width="1" fill="none"/>
+            <text x="110" y="24" font-family="sans-serif" font-size="5" font-weight="bold" fill="url(#goldGrad)">R</text>
+          </svg>
+          <div class="border-l border-amber-500/20 pl-2">
+            <p class="text-[10px] text-amber-200/80 uppercase tracking-widest font-serif leading-none">Restaurante</p>
+            <p class="text-xs font-serif font-bold text-amber-400 tracking-wider">MILAGROS</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DESKTOP NAVIGATION TABS -->
+    <div class="hidden md:block bg-slate-50 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 flex justify-center space-x-8">
+        <button id="tab-btn-worker" onclick="switchTab('worker')" class="py-2.5 px-4 text-sm font-semibold border-b-2 border-red-600 text-red-600 transition-colors flex items-center gap-2">
+          <i class="fa-solid fa-clipboard-list text-red-600"></i> Buzón del Colaborador
+        </button>
+        <button id="tab-btn-rh" onclick="switchTab('rh')" class="py-2.5 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2">
+          <i class="fa-solid fa-user-lock"></i> Portal Recursos Humanos (RH)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6">
+
+    <!-- ========================================================================= -->
+    <!-- APARTADO 1: BUZÓN PARA TRABAJADORES / COLABORADORES                       -->
+    <!-- ========================================================================= -->
+    <section id="section-worker" class="space-y-6">
+      
+      <!-- Welcome Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-slate-700/50">
+        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+          <i class="fa-solid fa-comments text-9xl text-amber-400"></i>
+        </div>
+        <div class="relative z-10 max-w-3xl">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-600/30 text-red-300 border border-red-500/30 mb-3">
+            <i class="fa-solid fa-shield-heart mr-1.5"></i> Espacio Seguro y Confidencial
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Tu voz nos ayuda a mejorar día con día
+          </h2>
+          <p class="mt-2 text-sm sm:text-base text-slate-300 leading-relaxed">
+            En <strong class="text-amber-400 font-semibold">Menjurjería Milagros</strong> y <strong class="text-red-400 font-semibold">Mentory Consultor Turístico</strong> valoramos tu experiencia laboral. Puedes expresar tus quejas, inconformidades o sugerencias de mejora con total libertad.
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+        <div class="border-b border-slate-100 bg-slate-50/70 px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-paper-plane text-sm"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800">Nuevo Reporte o Sugerencia</h3>
+          </div>
+          <span class="text-xs text-slate-500 font-medium bg-white px-2.5 py-1 rounded-md border border-slate-200">
+            Campos obligatorios (<span class="text-red-500">*</span>)
+          </span>
+        </div>
+
+        <form id="workerForm" onsubmit="handleWorkerSubmit(event)" class="p-6 sm:p-8 space-y-6">
+
+          <!-- OPTION ANONYMOUS OR IDENTIFIED -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 mb-2">
+              ¿Cómo deseas enviar este comentario? <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label id="label-anon" class="relative flex items-center p-4 rounded-xl border-2 border-red-600 bg-red-50/40 cursor-pointer transition-all hover:border-red-500">
+                <input type="radio" name="anonOption" value="anonymous" checked onchange="toggleAnonMode(true)" class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300">
+                <div class="ml-3">
+                  <span class="block text-sm font-bold text-slate-900">
+                    <i class="fa-solid fa-user-ninja mr-1.5 text-red-600"></i> Totalmente Anónimo
+                  </span>
+                  <span class="block text-xs text-slate-500">No se registrará tu nombre ni ningún dato personal.</span>
+                </div>
+              </label>
+
+              <label id="label-ident" class="relative flex items-center p-4 rounded-xl border-2 border-slate-200 bg-white cursor-pointer transition-all hover:border-slate-300">
+                <input type="radio" name="anonOption" value="identified" onchange="toggleAnonMode(false)" class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300">
+                <div class="ml-3">
+                  <span class="block text-sm font-bold text-slate-900">
+                    <i class="fa-solid fa-id-card mr-1.5 text-blue-600"></i> Proporcionar mis Datos
+                  </span>
+                  <span class="block text-xs text-slate-500">Para que RH pueda darte un seguimiento personalizado.</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- PERSONAL DATA INPUTS (HIDDEN BY DEFAULT IF ANONYMOUS) -->
+          <div id="personalDataFields" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200 animate-fadeIn">
+            <div>
+              <label for="workerName" class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo <span class="text-red-500">*</span></label>
+              <input type="text" id="workerName" placeholder="Ej. Juan Pérez" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none">
+            </div>
+
+            <div>
+              <label for="workerRole" class="block text-xs font-semibold text-slate-700 mb-1">Puesto / Área <span class="text-red-500">*</span></label>
+              <select id="workerRole" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none bg-white">
+                <option value="">Selecciona tu área...</option>
+                <option value="Cocina">Cocina</option>
+                <option value="Meseros / Piso">Meseros / Piso</option>
+                <option value="Barra / Bartender">Barra / Bartender</option>
+                <option value="Limpieza y Mantenimiento">Limpieza y Mantenimiento</option>
+                <option value="Caja y Recepción">Caja y Recepción</option>
+                <option value="Administración / Gerencia">Administración / Gerencia</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="workerContact" class="block text-xs font-semibold text-slate-700 mb-1">Teléfono o Correo (Opcional)</label>
+              <input type="text" id="workerContact" placeholder="Ej. 55 1234 5678" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none">
+            </div>
+          </div>
+
+          <!-- CATEGORIES -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 mb-2">
+              Categoría del Reporte <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              
+              <label class="category-card cursor-pointer border border-slate-200 rounded-xl p-3.5 hover:bg-slate-50 transition-all flex items-start space-x-3">
+                <input type="radio" name="category" value="Clima Laboral y Trato" required class="mt-1 text-red-600 focus:ring-red-500">
+                <div>
+                  <span class="block text-sm font-bold text-slate-800"><i class="fa-solid fa-users text-purple-600 mr-1"></i> Clima Laboral y Trato</span>
+                  <span class="block text-xs text-slate-500 mt-0.5">Relación con compañeros, jefes o ambiente de trabajo.</span>
+                </div>
+              </label>
+
+              <label class="category-card cursor-pointer border border-slate-200 rounded-xl p-3.5 hover:bg-slate-50 transition-all flex items-start space-x-3">
+                <input type="radio" name="category" value="Mantenimiento" class="mt-1 text-red-600 focus:ring-red-500">
+                <div>
+                  <span class="block text-sm font-bold text-slate-800"><i class="fa-solid fa-wrench text-amber-600 mr-1"></i> Mantenimiento</span>
+                  <span class="block text-xs text-slate-500 mt-0.5">Fallas en equipos, inmobiliario o instalaciones.</span>
+                </div>
+              </label>
+
+              <label class="category-card cursor-pointer border border-slate-200 rounded-xl p-3.5 hover:bg-slate-50 transition-all flex items-start space-x-3">
+                <input type="radio" name="category" value="Seguridad e Higiene" class="mt-1 text-red-600 focus:ring-red-500">
+                <div>
+                  <span class="block text-sm font-bold text-slate-800"><i class="fa-solid fa-shield-virus text-emerald-600 mr-1"></i> Seguridad e Higiene</span>
+                  <span class="block text-xs text-slate-500 mt-0.5">Condiciones sanitarias, riesgos o equipo de protección.</span>
+                </div>
+              </label>
+
+              <label class="category-card cursor-pointer border border-slate-200 rounded-xl p-3.5 hover:bg-slate-50 transition-all flex items-start space-x-3">
+                <input type="radio" name="category" value="Sugerencia de Mejora" class="mt-1 text-red-600 focus:ring-red-500">
+                <div>
+                  <span class="block text-sm font-bold text-slate-800"><i class="fa-solid fa-lightbulb text-blue-600 mr-1"></i> Sugerencia de Mejora</span>
+                  <span class="block text-xs text-slate-500 mt-0.5">Ideas para optimizar la operación o servicio.</span>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- SUBJECT & DESCRIPTION -->
+          <div class="space-y-4">
+            <div>
+              <label for="ticketSubject" class="block text-sm font-bold text-slate-800 mb-1">
+                Asunto o Título Breve <span class="text-red-500">*</span>
+              </label>
+              <input type="text" id="ticketSubject" required placeholder="Ej. Falla en aire acondicionado de cocina / Inconformidad con horarios" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-sm">
+            </div>
+
+            <div>
+              <label for="ticketDetails" class="block text-sm font-bold text-slate-800 mb-1">
+                Descripción Detallada <span class="text-red-500">*</span>
+              </label>
+              <textarea id="ticketDetails" rows="4" required placeholder="Por favor explica detalladamente qué sucedió, cuándo ocurrió, quiénes estuvieron involucrados y cualquier detalle relevante..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none text-sm"></textarea>
+            </div>
+          </div>
+
+          <!-- EVIDENCIA UPLOAD -->
+          <div>
+            <label class="block text-sm font-bold text-slate-800 mb-1">
+              Adjuntar Evidencia (Opcional)
+            </label>
+            <p class="text-xs text-slate-500 mb-2">Puedes subir una foto o documento que respalde tu reporte (máx. 5 MB).</p>
+            
+            <div class="flex items-center justify-center w-full">
+              <label for="evidenceInput" class="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 transition-all">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400 mb-1"></i>
+                  <p class="text-xs text-slate-600 font-medium"><span class="font-bold text-red-600">Haz clic para subir</span> o arrastra la imagen aquí</p>
+                  <p class="text-[11px] text-slate-400 mt-1">PNG, JPG, JPEG o GIF</p>
+                </div>
+                <input id="evidenceInput" type="file" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+              </label>
+            </div>
+
+            <!-- PREVIEW AREA -->
+            <div id="evidencePreviewContainer" class="hidden mt-3 p-3 bg-slate-100 rounded-xl flex items-center justify-between">
+              <div class="flex items-center space-x-3 overflow-hidden">
+                <img id="evidencePreviewImg" src="" alt="Previsualización" class="h-14 w-14 object-cover rounded-lg border border-slate-300">
+                <div class="truncate">
+                  <p id="evidenceFileName" class="text-xs font-semibold text-slate-800 truncate"></p>
+                  <p id="evidenceFileSize" class="text-[11px] text-slate-500"></p>
+                </div>
+              </div>
+              <button type="button" onclick="removeEvidence()" class="text-xs font-semibold text-red-600 hover:text-red-800 p-2">
+                <i class="fa-solid fa-trash-can mr-1"></i> Eliminar
+              </button>
+            </div>
+          </div>
+
+          <!-- SUBMIT BUTTON -->
+          <div class="pt-2">
+            <button type="submit" class="w-full sm:w-auto px-8 py-3.5 mentory-red-gradient text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:opacity-95 transition-all flex items-center justify-center text-sm space-x-2">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Enviar Reporte a Recursos Humanos</span>
+            </button>
+            <p class="text-xs text-slate-400 text-center sm:text-left mt-2">Puedes enviar los comentarios y sugerencias que necesites de forma ilimitada.</p>
+          </div>
+
+        </form>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- APARTADO 2: PANEL DE RECURSOS HUMANOS (RH)                                -->
+    <!-- ========================================================================= -->
+    <section id="section-rh" class="hidden space-y-6">
+
+      <!-- RH LOGIN OVERLAY (SHOWS IF NOT AUTHENTICATED) -->
+      <div id="rhAuthContainer" class="max-w-md mx-auto my-12 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 text-white text-center">
+          <div class="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto mb-3 text-xl">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h3 class="text-xl font-bold font-serif text-white">Acceso Exclusivo RH</h3>
+          <p class="text-xs text-slate-300 mt-1">Mentory Grupo Consultor Turístico</p>
+        </div>
+
+        <form onsubmit="handleRhLogin(event)" class="p-6 space-y-4">
+          <div>
+            <label for="rhPasswordInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Contraseña de Acceso RH
+            </label>
+
+            <div class="relative">
+              <input type="password" id="rhPasswordInput" required placeholder="Ingrese la contraseña..." class="w-full px-4 py-3 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none pr-10">
+              <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600">
+                <i id="passEyeIcon" class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <p id="rhLoginError" class="hidden text-xs text-red-600 font-semibold mt-1">
+              <i class="fa-solid fa-circle-exclamation mr-1"></i> Contraseña incorrecta. Verifique e intente de nuevo.
+            </p>
+          </div>
+
+          <button type="submit" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl shadow hover:bg-slate-800 transition-all text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-key text-amber-400"></i> Ingresar al Dashboard
+          </button>
+        </form>
+      </div>
+
+      <!-- RH DASHBOARD CONTENT (VISIBLE ONCE AUTHENTICATED) -->
+      <div id="rhDashboard" class="hidden space-y-6">
+
+        <!-- DASHBOARD HEADER -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                RH Sesión Activa
+              </span>
+              <span class="text-xs text-slate-400">| Mentory Consultor Turístico</span>
+            </div>
+            <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Panel de Control de Incidencias</h2>
+            <p class="text-xs text-slate-500">Gestión, seguimiento y exportación de quejas y sugerencias de Menjurjería Milagros.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="exportToExcel()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow transition-all flex items-center gap-2">
+              <i class="fa-solid fa-file-excel text-base"></i> Exportar Reporte Excel
+            </button>
+            <button onclick="rhLogout()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-all flex items-center gap-1.5">
+              <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+
+        <!-- STATS CARDS -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold uppercase text-slate-400 tracking-wider">Total Registros</p>
+              <h3 id="statTotal" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-inbox"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-amber-200 bg-amber-50/30 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold uppercase text-amber-700 tracking-wider">Pendientes</p>
+              <h3 id="statPendiente" class="text-2xl font-black text-amber-600 mt-1">0</h3>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-blue-200 bg-blue-50/30 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold uppercase text-blue-700 tracking-wider">En Seguimiento</p>
+              <h3 id="statSeguimiento" class="text-2xl font-black text-blue-600 mt-1">0</h3>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-spinner"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/30 shadow-sm flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold uppercase text-emerald-700 tracking-wider">Resueltos</p>
+              <h3 id="statResuelto" class="text-2xl font-black text-emerald-600 mt-1">0</h3>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FILTERS AND SEARCH BAR -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-4 gap-3">
+          
+          <!-- Search Input -->
+          <div class="md:col-span-2 relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+            <input type="text" id="filterSearch" oninput="applyRhFilters()" placeholder="Buscar por folio, nombre, asunto o palabras clave..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none">
+          </div>
+
+          <!-- Status Filter -->
+          <div>
+            <select id="filterStatus" onchange="applyRhFilters()" class="w-full py-2 px-3 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none bg-white">
+              <option value="ALL">Todos los Estados</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="En Seguimiento">En Seguimiento</option>
+              <option value="Resuelto">Resuelto</option>
+            </select>
+          </div>
+
+          <!-- Category Filter -->
+          <div>
+            <select id="filterCategory" onchange="applyRhFilters()" class="w-full py-2 px-3 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none bg-white">
+              <option value="ALL">Todas las Categorías</option>
+              <option value="Clima Laboral y Trato">Clima Laboral y Trato</option>
+              <option value="Mantenimiento">Mantenimiento</option>
+              <option value="Seguridad e Higiene">Seguridad e Higiene</option>
+              <option value="Sugerencia de Mejora">Sugerencia de Mejora</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- TICKETS TABLE / CARDS -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th class="py-3 px-4">Folio / Fecha</th>
+                  <th class="py-3 px-4">Tipo / Remitente</th>
+                  <th class="py-3 px-4">Categoría</th>
+                  <th class="py-3 px-4">Asunto & Detalle</th>
+                  <th class="py-3 px-4">Estado</th>
+                  <th class="py-3 px-4">Evidencia</th>
+                  <th class="py-3 px-4 text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="ticketsTableBody" class="divide-y divide-slate-100 text-xs text-slate-700">
+                <!-- Rows injected dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- EMPTY STATE -->
+          <div id="noTicketsMessage" class="hidden py-12 text-center">
+            <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-2"></i>
+            <p class="text-sm font-semibold text-slate-600">No se encontraron reportes con los filtros seleccionados.</p>
+            <p class="text-xs text-slate-400">Intenta cambiar la búsqueda o el filtro de categoría/estado.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS & NOTIFICATIONS                                                    -->
+  <!-- ========================================================================= -->
+
+  <!-- SUCCESS CONFIRMATION MODAL FOR WORKER -->
+  <div id="successModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4 animate-scaleUp">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl font-bold">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold text-slate-900">¡Reporte Enviado con Éxito!</h3>
+        <p class="text-xs text-slate-500 mt-1">Agradecemos tu contribución para hacer de Menjurjería Milagros un mejor lugar.</p>
+      </div>
+      <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+        <p class="text-[11px] font-semibold text-slate-400 uppercase">Tu Número de Folio Asignado</p>
+        <p id="createdFolioCode" class="text-lg font-black text-red-600 tracking-wider mt-0.5">MM-0000</p>
+      </div>
+      <p class="text-xs text-slate-500">Este folio ha sido registrado en el sistema de Recursos Humanos de Mentory Consultor Turístico.</p>
+      <button onclick="closeSuccessModal()" class="w-full py-3 mentory-red-gradient text-white font-bold text-sm rounded-xl shadow">
+        Aceptar y Volver al Formulario
+      </button>
+    </div>
+  </div>
+
+  <!-- RH TICKET DETAIL & NOTES MODAL -->
+  <div id="rhDetailModal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-serif text-amber-400 uppercase tracking-widest font-bold">Detalle del Registro</span>
+          <span id="modalFolioBadge" class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-800 text-slate-200 border border-slate-700">MM-0000</span>
+        </div>
+        <button onclick="closeRhModal()" class="text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-5 text-xs text-slate-700">
+        
+        <!-- Info Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Fecha y Hora</span>
+            <span id="modalDate" class="font-semibold text-slate-800"></span>
+          </div>
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Tipo de Envío</span>
+            <span id="modalType" class="font-semibold text-slate-800"></span>
+          </div>
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Categoría</span>
+            <span id="modalCategory" class="font-semibold text-slate-800"></span>
+          </div>
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Nombre Colaborador</span>
+            <span id="modalName" class="font-semibold text-slate-800"></span>
+          </div>
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Puesto / Área</span>
+            <span id="modalRole" class="font-semibold text-slate-800"></span>
+          </div>
+          <div>
+            <span class="block text-[10px] font-bold text-slate-400 uppercase">Contacto</span>
+            <span id="modalContact" class="font-semibold text-slate-800"></span>
+          </div>
+        </div>
+
+        <!-- Subject & Details -->
+        <div>
+          <span class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Asunto</span>
+          <p id="modalSubject" class="text-sm font-bold text-slate-900 bg-white p-2.5 rounded-lg border border-slate-200"></p>
+        </div>
+
+        <div>
+          <span class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Descripción Completa</span>
+          <p id="modalDetails" class="whitespace-pre-wrap leading-relaxed text-slate-700 bg-white p-3 rounded-lg border border-slate-200 text-xs"></p>
+        </div>
+
+        <!-- Evidence Attachment View -->
+        <div id="modalEvidenceSection" class="hidden">
+          <span class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Evidencia Adjunta</span>
+          <div class="p-2 border border-slate-200 rounded-lg bg-slate-50 inline-block">
+            <img id="modalEvidenceImg" src="" alt="Evidencia" class="max-h-52 rounded object-contain border border-slate-300">
+          </div>
+        </div>
+
+        <hr class="border-slate-200">
+
+        <!-- RH STATUS UPDATE AND NOTES -->
+        <div class="space-y-3 bg-amber-50/50 p-4 rounded-xl border border-amber-200">
+          <h4 class="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+            <i class="fa-solid fa-user-gear text-amber-600"></i> Gestión y Seguimiento Interno de RH
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="modalStatusSelect" class="block text-[11px] font-bold text-slate-700 mb-1">Estado de la Solicitud</label>
+              <select id="modalStatusSelect" class="w-full py-2 px-3 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 outline-none bg-white font-semibold">
+                <option value="Pendiente">⚠️ Pendiente</option>
+                <option value="En Seguimiento">🔄 En Seguimiento</option>
+                <option value="Resuelto">✅ Resuelto</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="modalRhNotes" class="block text-[11px] font-bold text-slate-700 mb-1">
+              Notas y Recordatorios Internos de RH (Solo visible para la administradora)
+            </label>
+            <textarea id="modalRhNotes" rows="3" placeholder="Escribe aquí las acciones tomadas, compromisos, pláticas agendadas o recordatorios pendientes..." class="w-full p-2.5 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-amber-500 outline-none bg-white"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 border-t border-slate-200 px-6 py-3 flex items-center justify-between">
+        <button onclick="deleteCurrentTicket()" class="px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-1">
+          <i class="fa-solid fa-trash-can"></i> Eliminar Registro
+        </button>
+
+        <div class="flex space-x-2">
+          <button onclick="closeRhModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-200 rounded-lg">
+            Cancelar
+          </button>
+          <button onclick="saveRhTicketChanges()" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-lg shadow">
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center space-x-3 transition-all transform translate-y-2">
+    <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <span id="toastMessage" class="text-xs font-semibold">Acción realizada con éxito.</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-xs text-slate-500 font-medium">
+        © <span id="yearSpan"></span> <strong class="text-slate-800">Mentory Grupo Consultor Turístico</strong>. Todos los derechos reservados.
+      </p>
+      <p class="text-[11px] text-slate-400 mt-0.5">
+        Sistema Interno de Buzón de Oportunidades y Sugerencias — Restaurante Menjurjería Milagros
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC                                                          -->
+  <!-- ========================================================================= -->
+  <script>
+    // Storage Key
+    const STORAGE_KEY = 'mentory_milagros_tickets_v1';
+    const RH_PASSWORD = 'MENTORY8998';
+
+    // State Variables
+    let tickets = [];
+    let isRhAuthenticated = false;
+    let selectedEvidenceBase64 = null;
+    let currentModalTicketId = null;
+
+    // Default Seed Data if LocalStorage is empty
+    const defaultSeedTickets = [
+      {
+        id: 'MM-8921',
+        date: '2026-10-28 14:30',
+        isAnonymous: false,
+        name: 'Carlos Mendoza',
+        puesto: 'Cocina',
+        contacto: '55-4321-9876',
+        category: 'Mantenimiento',
+        subject: 'Fuga leve en tarja de desinfección',
+        details: 'La llave izquierda de la tarja de sanitización de verduras gotea constantemente desde el martes. Favor de revisar empaques.',
+        evidence: null,
+        status: 'Pendiente',
+        rhNotes: 'Programar visita con el técnico de mantenimiento para este viernes.'
+      },
+      {
+        id: 'MM-8922',
+        date: '2026-10-29 11:15',
+        isAnonymous: true,
+        name: 'Anónimo',
+        puesto: 'N/A',
+        contacto: 'N/A',
+        category: 'Sugerencia de Mejora',
+        subject: 'Capacitación en nuevos cócteles de la carta',
+        details: 'Sería muy útil tener un taller de 30 minutos antes de apertura para repasar las recetas de la nueva temporada con el equipo de barra y meseros.',
+        evidence: null,
+        status: 'En Seguimiento',
+        rhNotes: 'Comentado con el Capitán de Meseros. Se agendará sesión el próximo martes.'
+      },
+      {
+        id: 'MM-8923',
+        date: '2026-10-30 09:40',
+        isAnonymous: true,
+        name: 'Anónimo',
+        puesto: 'N/A',
+        contacto: 'N/A',
+        category: 'Clima Laboral y Trato',
+        subject: 'Excelente coordinación en el turno nocturno',
+        details: 'Quiero felicitar al equipo de piso de ayer por la excelente comunicación durante el evento privado.',
+        evidence: null,
+        status: 'Resuelto',
+        rhNotes: 'Se envió nota de felicitación en la junta diaria.'
+      }
+    ];
+
+    // Initialize App
+    window.onload = function() {
+      document.getElementById('yearSpan').textContent = new Date().getFullYear();
+      loadTickets();
+    };
+
+    // Load Data from LocalStorage
+    function loadTickets() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          tickets = JSON.parse(stored);
+        } catch(e) {
+          tickets = defaultSeedTickets;
+        }
+      } else {
+        tickets = defaultSeedTickets;
+        saveTickets();
+      }
+    }
+
+    // Save Data to LocalStorage
+    function saveTickets() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tickets));
+    }
+
+    // TAB SWITCHING (WORKER vs RH)
+    function switchTab(tab) {
+      const secWorker = document.getElementById('section-worker');
+      const secRh = document.getElementById('section-rh');
+
+      const btnWorker = document.getElementById('tab-btn-worker');
+      const btnRh = document.getElementById('tab-btn-rh');
+
+      const mobWorker = document.getElementById('mob-btn-worker');
+      const mobRh = document.getElementById('mob-btn-rh');
+
+      if (tab === 'worker') {
+        secWorker.classList.remove('hidden');
+        secRh.classList.add('hidden');
+
+        btnWorker.className = "py-2.5 px-4 text-sm font-semibold border-b-2 border-red-600 text-red-600 transition-colors flex items-center gap-2";
+        btnRh.className = "py-2.5 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2";
+
+        mobWorker.className = "px-2.5 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-sm";
+        mobRh.className = "px-2.5 py-1 text-xs font-semibold rounded-md text-slate-600";
+      } else {
+        secWorker.classList.add('hidden');
+        secRh.classList.remove('hidden');
+
+        btnWorker.className = "py-2.5 px-4 text-sm font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2";
+        btnRh.className = "py-2.5 px-4 text-sm font-semibold border-b-2 border-red-600 text-red-600 transition-colors flex items-center gap-2";
+
+        mobWorker.className = "px-2.5 py-1 text-xs font-semibold rounded-md text-slate-600";
+        mobRh.className = "px-2.5 py-1 text-xs font-semibold rounded-md bg-white text-slate-800 shadow-sm";
+
+        // Check RH Authentication
+        if (isRhAuthenticated) {
+          renderRhDashboard();
+        } else {
+          document.getElementById('rhAuthContainer').classList.remove('hidden');
+          document.getElementById('rhDashboard').classList.add('hidden');
+        }
+      }
+    }
+
+    // TOGGLE ANONYMOUS MODE
+    function toggleAnonMode(isAnon) {
+      const personalFields = document.getElementById('personalDataFields');
+      const labelAnon = document.getElementById('label-anon');
+      const labelIdent = document.getElementById('label-ident');
+
+      const nameInput = document.getElementById('workerName');
+      const roleInput = document.getElementById('workerRole');
+
+      if (isAnon) {
+        personalFields.classList.add('hidden');
+        labelAnon.className = "relative flex items-center p-4 rounded-xl border-2 border-red-600 bg-red-50/40 cursor-pointer transition-all hover:border-red-500";
+        labelIdent.className = "relative flex items-center p-4 rounded-xl border-2 border-slate-200 bg-white cursor-pointer transition-all hover:border-slate-300";
+        nameInput.required = false;
+        roleInput.required = false;
+      } else {
+        personalFields.classList.remove('hidden');
+        labelAnon.className = "relative flex items-center p-4 rounded-xl border-2 border-slate-200 bg-white cursor-pointer transition-all hover:border-slate-300";
+        labelIdent.className = "relative flex items-center p-4 rounded-xl border-2 border-blue-600 bg-blue-50/40 cursor-pointer transition-all hover:border-blue-500";
+        nameInput.required = true;
+        roleInput.required = true;
+      }
+    }
+
+    // FILE ATTACHMENT HANDLER
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (file.size > 5 * 1024 * 1024) {
+        showToast("El archivo es demasiado grande. Máximo 5MB.", "error");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        selectedEvidenceBase64 = e.target.result;
+        document.getElementById('evidencePreviewImg').src = selectedEvidenceBase64;
+        document.getElementById('evidenceFileName').textContent = file.name;
+        document.getElementById('evidenceFileSize').textContent = (file.size / 1024).toFixed(1) + " KB";
+        document.getElementById('evidencePreviewContainer').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeEvidence() {
+      selectedEvidenceBase64 = null;
+      document.getElementById('evidenceInput').value = '';
+      document.getElementById('evidencePreviewContainer').classList.add('hidden');
+    }
+
+    // SUBMIT WORKER REPORT
+    function handleWorkerSubmit(e) {
+      e.preventDefault();
+
+      const anonOption = document.querySelector('input[name="anonOption"]:checked').value;
+      const isAnon = anonOption === 'anonymous';
+
+      const selectedCat = document.querySelector('input[name="category"]:checked');
+      if (!selectedCat) {
+        showToast("Por favor selecciona una categoría.", "error");
+        return;
+      }
+
+      const now = new Date();
+      const dateStr = now.getFullYear() + '-' + 
+                      String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                      String(now.getDate()).padStart(2, '0') + ' ' + 
+                      String(now.getHours()).padStart(2, '0') + ':' + 
+                      String(now.getMinutes()).padStart(2, '0');
+
+      const folioNumber = 'MM-' + Math.floor(1000 + Math.random() * 9000);
+
+      const newTicket = {
+        id: folioNumber,
+        date: dateStr,
+        isAnonymous: isAnon,
+        name: isAnon ? 'Anónimo' : (document.getElementById('workerName').value.trim() || 'No especificado'),
+        puesto: isAnon ? 'N/A' : (document.getElementById('workerRole').value || 'No especificado'),
+        contacto: isAnon ? 'N/A' : (document.getElementById('workerContact').value.trim() || 'Sin contacto'),
+        category: selectedCat.value,
+        subject: document.getElementById('ticketSubject').value.trim(),
+        details: document.getElementById('ticketDetails').value.trim(),
+        evidence: selectedEvidenceBase64,
+        status: 'Pendiente',
+        rhNotes: ''
+      };
+
+      tickets.unshift(newTicket);
+      saveTickets();
+
+      // Show confirmation modal
+      document.getElementById('createdFolioCode').textContent = folioNumber;
+      document.getElementById('successModal').classList.remove('hidden');
+
+      // Reset form
+      document.getElementById('workerForm').reset();
+      toggleAnonMode(true);
+      removeEvidence();
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.add('hidden');
+    }
+
+    // RH AUTHENTICATION
+    function handleRhLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById('rhPasswordInput').value;
+      const err = document.getElementById('rhLoginError');
+
+      if (pass === RH_PASSWORD) {
+        isRhAuthenticated = true;
+        err.classList.add('hidden');
+        document.getElementById('rhPasswordInput').value = '';
+        document.getElementById('rhAuthContainer').classList.add('hidden');
+        document.getElementById('rhDashboard').classList.remove('hidden');
+        renderRhDashboard();
+        showToast("Bienvenida al Panel de Recursos Humanos", "success");
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('rhPasswordInput');
+      const eyeIcon = document.getElementById('passEyeIcon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        eyeIcon.className = 'fa-solid fa-eye-slash';
+      } else {
+        passInput.type = 'password';
+        eyeIcon.className = 'fa-solid fa-eye';
+      }
+    }
+
+    function rhLogout() {
+      isRhAuthenticated = false;
+      document.getElementById('rhAuthContainer').classList.remove('hidden');
+      document.getElementById('rhDashboard').classList.add('hidden');
+      showToast("Sesión de RH cerrada correctamente.", "info");
+    }
+
+    // RENDER RH DASHBOARD & METRICS
+    function renderRhDashboard() {
+      updateRhStats();
+      applyRhFilters();
+    }
+
+    function updateRhStats() {
+      document.getElementById('statTotal').textContent = tickets.length;
+      document.getElementById('statPendiente').textContent = tickets.filter(t => t.status === 'Pendiente').length;
+      document.getElementById('statSeguimiento').textContent = tickets.filter(t => t.status === 'En Seguimiento').length;
+      document.getElementById('statResuelto').textContent = tickets.filter(t => t.status === 'Resuelto').length;
+    }
+
+    // FILTER & RENDER TABLE
+    function applyRhFilters() {
+      const search = document.getElementById('filterSearch').value.toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      const catFilter = document.getElementById('filterCategory').value;
+
+      const filtered = tickets.filter(t => {
+        const matchesSearch = t.id.toLowerCase().includes(search) || 
+                              t.name.toLowerCase().includes(search) || 
+                              t.subject.toLowerCase().includes(search) || 
+                              t.details.toLowerCase().includes(search);
+
+        const matchesStatus = (statusFilter === 'ALL') || (t.status === statusFilter);
+        const matchesCat = (catFilter === 'ALL') || (t.category === catFilter);
+
+        return matchesSearch && matchesStatus && matchesCat;
+      });
+
+      renderTicketsTable(filtered);
+    }
+
+    function renderTicketsTable(data) {
+      const tbody = document.getElementById('ticketsTableBody');
+      const emptyMsg = document.getElementById('noTicketsMessage');
+
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        emptyMsg.classList.remove('hidden');
+        return;
+      }
+
+      emptyMsg.classList.add('hidden');
+
+      data.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 transition-colors border-b border-slate-100";
+
+        // Status Badge Style
+        let statusBadgeClass = "";
+        if (t.status === 'Pendiente') statusBadgeClass = "bg-amber-100 text-amber-800 border-amber-300";
+        else if (t.status === 'En Seguimiento') statusBadgeClass = "bg-blue-100 text-blue-800 border-blue-300";
+        else if (t.status === 'Resuelto') statusBadgeClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
+
+        // Category Icon & Color
+        let catIcon = "fa-tag";
+        if (t.category === 'Clima Laboral y Trato') catIcon = "fa-users text-purple-600";
+        else if (t.category === 'Mantenimiento') catIcon = "fa-wrench text-amber-600";
+        else if (t.category === 'Seguridad e Higiene') catIcon = "fa-shield-virus text-emerald-600";
+        else if (t.category === 'Sugerencia de Mejora') catIcon = "fa-lightbulb text-blue-600";
+
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <span class="font-bold text-slate-900 block">${t.id}</span>
+            <span class="text-[10px] text-slate-400">${t.date}</span>
+          </td>
+          <td class="py-3 px-4">
+            ${t.isAnonymous 
+              ? `<span class="inline-flex items-center text-xs font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-user-ninja mr-1 text-slate-500"></i> Anónimo</span>`
+              : `<div><span class="font-bold text-slate-800 block">${t.name}</span><span class="text-[10px] text-slate-500">${t.puesto}</span></div>`
+            }
+          </td>
+          <td class="py-3 px-4">
+            <span class="inline-flex items-center gap-1.5 font-medium text-xs text-slate-700">
+              <i class="fa-solid ${catIcon}"></i> ${t.category}
+            </span>
+          </td>
+          <td class="py-3 px-4 max-w-xs">
+            <p class="font-bold text-slate-900 truncate">${t.subject}</p>
+            <p class="text-[11px] text-slate-500 truncate">${t.details}</p>
+          </td>
+          <td class="py-3 px-4">
+            <span class="px-2.5 py-1 text-[11px] font-bold rounded-full border ${statusBadgeClass}">
+              ${t.status}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-center">
+            ${t.evidence 
+              ? `<button onclick="openRhModal('${t.id}')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold bg-blue-50 px-2 py-1 rounded border border-blue-200"><i class="fa-solid fa-paperclip"></i> Ver Evidencia</button>`
+              : `<span class="text-slate-400 text-[11px]">Sin archivo</span>`
+            }
+          </td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="openRhModal('${t.id}')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-lg shadow-sm transition-all flex items-center gap-1.5 ml-auto">
+              <i class="fa-solid fa-pen-to-square"></i> Abrir Ticket
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // OPEN RH DETAIL MODAL
+    function openRhModal(ticketId) {
+      const ticket = tickets.find(t => t.id === ticketId);
+      if (!ticket) return;
+
+      currentModalTicketId = ticketId;
+
+      document.getElementById('modalFolioBadge').textContent = ticket.id;
+      document.getElementById('modalDate').textContent = ticket.date;
+      document.getElementById('modalType').textContent = ticket.isAnonymous ? 'Anónimo' : 'Identificado';
+      document.getElementById('modalCategory').textContent = ticket.category;
+      document.getElementById('modalName').textContent = ticket.name;
+      document.getElementById('modalRole').textContent = ticket.puesto;
+      document.getElementById('modalContact').textContent = ticket.contacto;
+      document.getElementById('modalSubject').textContent = ticket.subject;
+      document.getElementById('modalDetails').textContent = ticket.details;
+
+      // Evidence
+      const evSec = document.getElementById('modalEvidenceSection');
+      if (ticket.evidence) {
+        document.getElementById('modalEvidenceImg').src = ticket.evidence;
+        evSec.classList.remove('hidden');
+      } else {
+        evSec.classList.add('hidden');
+      }
+
+      // Editable Fields
+      document.getElementById('modalStatusSelect').value = ticket.status;
+      document.getElementById('modalRhNotes').value = ticket.rhNotes || '';
+
+      document.getElementById('rhDetailModal').classList.remove('hidden');
+    }
+
+    function closeRhModal() {
+      document.getElementById('rhDetailModal').classList.add('hidden');
+      currentModalTicketId = null;
+    }
+
+    // SAVE CHANGES IN RH MODAL
+    function saveRhTicketChanges() {
+      if (!currentModalTicketId) return;
+
+      const ticket = tickets.find(t => t.id === currentModalTicketId);
+      if (ticket) {
+        ticket.status = document.getElementById('modalStatusSelect').value;
+        ticket.rhNotes = document.getElementById('modalRhNotes').value.trim();
+
+        saveTickets();
+        renderRhDashboard();
+        closeRhModal();
+        showToast("Registro actualizado correctamente.", "success");
+      }
+    }
+
+    // DELETE TICKET
+    function deleteCurrentTicket() {
+      if (!currentModalTicketId) return;
+
+      if (confirm(`¿Está segura de que desea eliminar permanentemente el folio ${currentModalTicketId}?`)) {
+        tickets = tickets.filter(t => t.id !== currentModalTicketId);
+        saveTickets();
+        renderRhDashboard();
+        closeRhModal();
+        showToast("Ticket eliminado.", "info");
+      }
+    }
+
+    // EXPORT TO EXCEL (.XLSX)
+    function exportToExcel() {
+      if (tickets.length === 0) {
+        showToast("No hay datos disponibles para exportar.", "error");
+        return;
+      }
+
+      const formattedData = tickets.map(t => ({
+        'Folio': t.id,
+        'Fecha y Hora': t.date,
+        'Tipo de Envío': t.isAnonymous ? 'Anónimo' : 'Identificado con Datos',
+        'Nombre del Colaborador': t.name,
+        'Puesto / Área': t.puesto,
+        'Teléfono / Contacto': t.contacto,
+        'Categoría': t.category,
+        'Asunto': t.subject,
+        'Descripción Detallada': t.details,
+        'Tiene Evidencia Adjunta': t.evidence ? 'Sí' : 'No',
+        'Estado de Atención': t.status,
+        'Notas y Seguimiento Interno RH': t.rhNotes || 'Sin notas registradas'
+      }));
+
+      // Create Worksheet
+      const worksheet = XLSX.utils.json_to_sheet(formattedData);
+
+      // Auto fit columns width
+      const colWidths = [
+        { wch: 12 }, // Folio
+        { wch: 18 }, // Fecha
+        { wch: 22 }, // Tipo
+        { wch: 25 }, // Nombre
+        { wch: 20 }, // Puesto
+        { wch: 20 }, // Contacto
+        { wch: 25 }, // Categoria
+        { wch: 30 }, // Asunto
+        { wch: 45 }, // Detalle
+        { wch: 20 }, // Evidencia
+        { wch: 18 }, // Estado
+        { wch: 40 }  // Notas RH
+      ];
+      worksheet['!cols'] = colWidths;
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Reportes RH");
+
+      const today = new Date().toISOString().slice(0, 10);
+      XLSX.writeFile(workbook, `Reporte_RH_Menjurjeria_Milagros_${today}.xlsx`);
+
+      showToast("Reporte Excel descargado con éxito.", "success");
+    }
+
+    // TOAST NOTIFICATION UTILITY
+    function showToast(message, type = "success") {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMsg.textContent = message;
+
+      if (type === "success") {
+        toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
+      } else if (type === "error") {
+        toastIcon.className = "fa-solid fa-circle-xmark text-red-400 text-lg";
+      } else {
+        toastIcon.className = "fa-solid fa-circle-info text-blue-400 text-lg";
+      }
+
+      toast.classList.remove('hidden');
+      toast.classList.remove('translate-y-2');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.add('translate-y-2');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
